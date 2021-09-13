@@ -29,6 +29,17 @@ func CreateBlock(data string, prevHash []byte) *Block {
 	return block
 }
 
+type Blockchain struct {
+	blocks []*Block
+}
+
+//Function to add a Block to the Blockchain
+func (chain *Blockchain) AddBlock(data string) {
+	prevBlock := chain.blocks[len(chain.blocks)-1]
+	newBlock := CreateBlock(data, prevBlock.Hash)
+	chain.blocks = append(chain.blocks, newBlock)
+}
+
 func main() {
 
 }
