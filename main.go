@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/ikcoin/go-blockchain-implementation/blockchain"
 )
@@ -20,6 +21,10 @@ func main() {
 		fmt.Printf("Data: %x\n", block.Data)
 		fmt.Printf("Hash: %x\n", block.Hash)
 		fmt.Println("-----------")
+
+		pow := blockchain.NewProof(block)
+		fmt.Println("Pow: ", strconv.FormatBool(pow.Validate()))
+		fmt.Println()
 	}
 
 }
