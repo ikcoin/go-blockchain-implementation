@@ -7,6 +7,7 @@ import (
 )
 
 func main() {
+
 	chain := blockchain.InitBlockchain()
 	fmt.Println(string(chain.Blocks[0].Data))
 
@@ -20,4 +21,5 @@ func main() {
 		fmt.Printf("Hash: %x\n", block.Hash)
 		fmt.Println("-----------")
 	}
+
 }
