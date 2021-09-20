@@ -1,64 +1,20 @@
 package main
 
 import (
-	"bytes"
-	"crypto/sha256"
 	"fmt"
+
+	"github.com/ikcoin/go-blockchain-implementation/blockchain"
 )
 
-type Block struct {
-	Hash     []byte
-	Data     []byte
-	PrevHash []byte
-}
-
-//Function to create the Hash based on the previous Hash and Data
-func (b *Block) DeriveHash() {
-	info := bytes.Join([][]byte{b.Data, b.PrevHash}, []byte{})
-	hash := sha256.Sum256(info)
-	b.Hash = hash[:]
-}
-
-//Function to create a block
-func CreateBlock(data string, prevHash []byte) *Block {
-	//block := &Block{[]byte{}, []byte(data), prevHash}
-	block := new(Block) //constructor
-	block.Hash = []byte{}
-	block.Data = []byte(data)
-	block.PrevHash = prevHash
-	block.DeriveHash()
-	return block
-}
-
-type Blockchain struct {
-	blocks []*Block
-}
-
-//Function to add a Block to the Blockchain
-func (chain *Blockchain) AddBlock(data string) {
-	prevBlock := chain.blocks[len(chain.blocks)-1]
-	newBlock := CreateBlock(data, prevBlock.Hash)
-	chain.blocks = append(chain.blocks, newBlock)
-}
-
-//Function to create the GenesisBlock(first Block) of the Blockchain
-func Genesis() *Block {
-	return CreateBlock("Genesis", []byte{})
-}
-
-//create the Blockchain
-func InitBlockchain() *Blockchain {
-	return &Blockchain{[]*Block{Genesis()}} //Array of blocks with a call to Genesis function
-}
 func main() {
-	chain := InitBlockchain()
-	fmt.Println(string(chain.blocks[0].Data))
+	chain := blockchain.InitBlockchain()
+	fmt.Println(string(chain.Blocks[0].Data))
 
 	chain.AddBlock("First Block")
 	chain.AddBlock("Second Block")
 	chain.AddBlock("Third Block")
 
-	for _, block := range chain.blocks {
+	for _, block := range chain.Blocks {
 		fmt.Printf("Previous Hash: %x\n", block.PrevHash)
 		fmt.Printf("Data: %x\n", block.Data)
 		fmt.Printf("Hash: %x\n", block.Hash)
