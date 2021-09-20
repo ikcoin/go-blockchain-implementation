@@ -9,6 +9,7 @@ type Block struct {
 	Hash     []byte
 	Data     []byte
 	PrevHash []byte
+	Nonce    int
 }
 
 //Function to create the Hash based on the previous Hash and Data
@@ -25,7 +26,12 @@ func CreateBlock(data string, prevHash []byte) *Block {
 	block.Hash = []byte{}
 	block.Data = []byte(data)
 	block.PrevHash = prevHash
-	block.DeriveHash()
+	block.Nonce = 0 //initial nonce
+	//block.DeriveHash()
+
+	pow := NewProof(block)
+	block.Nonce, block.Hash = pow.Run()
+
 	return block
 }
 
