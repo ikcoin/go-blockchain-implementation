@@ -50,7 +50,7 @@ func (pow *ProofOfWork) InitData(nonce int) []byte {
 	return data
 }
 
-func (pow *ProofOfWork) Run() (int, []byte) {
+func (pow *ProofOfWork) Mining() (int, []byte) {
 	var intHash big.Int
 	var hash [32]byte
 	nonce := 0
