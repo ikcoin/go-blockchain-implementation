@@ -1,4 +1,3 @@
 # go-blockchain-implementation
 
-
-TTTTTTT
+A simple random _nonce_ Proof of Work blockchain implementation with Golang.
